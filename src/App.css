@@ -7,6 +7,11 @@ main {
 .carousel-container {
 	margin: 0;
 	display: grid;
+
+	&:focus-visible {
+		outline-offset: 5px;
+		outline: 2px dashed dodgerblue;
+	}
 }
 
 .img-wrapper {
@@ -47,7 +52,7 @@ main {
 		translate: calc(var(--direction) * -30%) 0;
 		scale: 0.83;
 		opacity: 0;
-
+		
 		@starting-style {
 			translate: 0 0;
 			opacity: 1;
