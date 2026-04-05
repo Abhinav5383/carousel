@@ -31,6 +31,7 @@ interface InTreeNodes {
 }
 
 function Carousel(props: CarouselProps) {
+	const loadedImages = new Set<string>();
 	const [currIdx, setCurrIdx] = createSignal(0);
 	const [inTreeNodes, setInTreeNodes] = createSignal<InTreeNodes[]>([
 		{
@@ -80,6 +81,37 @@ function Carousel(props: CarouselProps) {
 	function goto(newIdx: number) {
 		setCurrIdx(newIdx);
 	}
+
+	createEffect(async () => {
+		const curr = currIdx();
+		const _preload = [
+			curr + 1,
+			curr - 1,
+			curr + 2,
+			curr - 2,
+			curr + 3,
+			curr - 3,
+		];
+		const preloadIndices: number[] = [];
+
+		for (const idx of _preload) {
+			const _imgIdx =
+				idx < 0 ? props.images.length + idx : idx % props.images.length;
+			if (preloadIndices.includes(_imgIdx)) continue;
+			preloadIndices.push(_imgIdx);
+		}
+
+		for (const idx of preloadIndices) {
+			const data = props.images[idx];
+			if (!data) continue;
+
+			const img = new Image();
+			img.src = data.src;
+			img.onload = () => {
+				loadedImages.add(data.src);
+			};
+		}
+	});
 
 	return (
 		<figure
