@@ -82,7 +82,17 @@ function Carousel(props: CarouselProps) {
 	}
 
 	return (
-		<figure class="carousel-container">
+		<figure
+			class="carousel-container"
+			tabindex={0}
+			onKeyDown={(ev) => {
+				if (ev.key === "ArrowLeft") {
+					previous();
+				} else if (ev.key === "ArrowRight") {
+					next();
+				}
+			}}
+		>
 			<div class="img-wrapper">
 				<For each={inTreeNodes()}>
 					{(node) => {
