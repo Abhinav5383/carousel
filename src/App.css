@@ -25,7 +25,8 @@ main {
 
 		grid-row: 1 / -1;
 		grid-column: 1 / -1;
-		transition: translate 400ms, opacity 400ms;
+		transition: scale, translate, opacity;
+		transition-duration: 400ms;
 
 		--direction: 1;
 	}
@@ -33,19 +34,24 @@ main {
 	.slide-in {
 		opacity: 1;
 		translate: 0 0;
+		scale: 1;
 
 		@starting-style {
-			translate: calc(var(--direction) * 65%) 0;
-			opacity: 0;
+			translate: calc(var(--direction) * 100%) 0;
+			opacity: 0.3;
+			scale: 1.13;
 		}
 	}
 
 	.slide-out {
-		transition-delay: 100ms;
-		translate: calc(var(--direction) * -25%) 0;
+		translate: calc(var(--direction) * -30%) 0;
+		scale: 0.83;
+		opacity: 0;
 
 		@starting-style {
 			translate: 0 0;
+			opacity: 1;
+			scale: 1;
 		}
 	}
 
