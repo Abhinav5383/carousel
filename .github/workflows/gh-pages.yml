@@ -1,0 +1,14 @@
+name: Deploy to Pages
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-gh-pages:
+    uses: Abhinav5383/gh-workflows/.github/workflows/vite-gh-pages.yml@master
